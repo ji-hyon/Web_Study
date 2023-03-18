@@ -4,6 +4,8 @@
     padding-top: 50px; padding-bottom: 50px;
   } */
 
+
+  /* footer를 화면 하단에 고정하고자 할 때는 position:fixed를 이용하기  */
 footer {
     position : fixed;
     bottom : 0;

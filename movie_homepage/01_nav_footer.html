@@ -32,13 +32,13 @@
             <a class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#exampleModel">
               Login
             </a>
-            <!-- Modal -->
             </li>
         </ul>
       </div>
     </div>
   </nav>
 
+  <!-- 아래의 modal 태그들은 nav바 바깥에 위치해야 한다. -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -47,6 +47,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+          <!-- modal안에 form 배치시키기 -->
           <form>
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Email address</label>

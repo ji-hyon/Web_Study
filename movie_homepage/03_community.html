@@ -71,10 +71,18 @@
       </div>
     </div>
   </div>
+
+
+
   <!-- 03_community.html -->
+  <!-- container-fluid : 화면 크기게 상관 없이 100%의 width를 갖는다 -->
+  <!-- 본문의 모든 요소들을 container로 감싸기 -->
   <main class="container-fluid row p-5">
     <h1 style="margin: 10px;">Community</h1>
+
     <!-- Aside - 게시판 목록 -->
+    <!-- list-group 컴포넌트 사용하기 -->
+    <!-- 화면의 크기가 커지면 1/6인 2칸을 차지하고, 화면의 크기가 작을 때는 화면의 길이를 갖도록 설정  -->
     <aside class="list-group col-lg-2">
       <ul>
       <a href="#" class="list-group-item list-group-item-action" style="color: blue;">Boxoffice</a>
@@ -84,9 +92,11 @@
     </ul>
     </aside>
 
-    <!-- Section - 게시판 -->
-    <section class="col-lg-10">
 
+    <!-- Section - 게시판 -->
+    <!-- Section 안에 article과 table 위치. 
+    화면의 크기가 커지면 12칸 중 5/6인 10을 차지하도록 설정 -->
+    <section class="col-lg-10">
 
       <div>
         <article class="d-lg-none">
@@ -114,7 +124,10 @@
       </div>
     
     
-
+      <!-- table 컴포넌트 사용하기 -->
+      <!-- d-none : Hidden on all -->
+      <!-- d-block : Visible on all -->
+      <!-- d-sm-block : sm이상일 때 나타나기 -->
       <div class="d-none d-lg-block">
         <table class="table">
           <div>
@@ -163,7 +176,7 @@
   </main>
 
 
-
+  <!-- Pagination 컴포넌트 사용하기 -->
   <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
       <li class="page-item"><a class="page-link" href="#">Previous</a></li>
