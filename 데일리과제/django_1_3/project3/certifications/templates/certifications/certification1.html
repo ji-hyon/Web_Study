@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+
+{% block name %}
+<span>{{ name }}</span>
+{% endblock name %}
+
+{% block age %}
+<span>{{ age }}</span>
+{% endblock age %}
+
+{% block grade %}
+<span>{{ grade | random | upper }}</span>
+{% endblock grade %}
