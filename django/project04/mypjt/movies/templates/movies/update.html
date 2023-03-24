@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <h1>UPDATE</h1>
+    <hr>
+
+    <form action="{% url 'movies:update' movie.pk %}" method="POST" enctype="multipart/form-data" >
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="reset" value="Reset">
+        <input type="submit", value="Submit">
+    </form>
+    <hr>
+    <a href="{% url 'movies:index'%}">BACK</a>
+
+{% endblock content %}
+
+
+{% comment %} <a href="{% url 'movies:update' movie.pk %}">UPDATE</a>
+<form action="{% url 'movies:delete' movie.pk %}">
+    {% csrf_token %}
+    <input type="submit" value="DELETE">
+</form>
+<a href="{% url 'movies:index'%}">BACK</a> {% endcomment %}
