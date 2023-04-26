@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    // 아래 코드 안 됨. create하면서 선언하기 
+    // document.createElement('a')
+    // const a = document.querySelector('a')
+
+    const a = document.createElement('a')
+    a.setAttribute('href', 'http://www.ssafy.com/')
+    a.innerText = 'SSAFY'
+    document.body.appendChild(a)
+    a.addEventListener('click', function(event){
+      event.preventDefault()
+    })
+
+  </script>
+</body>
+</html>

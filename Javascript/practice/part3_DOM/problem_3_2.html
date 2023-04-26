@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div></div>
+  <ul></ul>
+
+  <script>
+    const h1 = document.createElement('h1')
+    h1.innerText = "오늘의 Todo"
+    
+    const div = document.querySelector('div')
+    div.appendChild(h1)
+
+    // const ul = document.createElement('ul') 안 됨...
+
+    const li1 = document.createElement('li')
+    li1.innerText = "양치하기"
+    const li2 = document.createElement('li')
+    li2.innerText = "공부하기"
+    const li3 = document.createElement('li')
+    li3.innerText = "휴식하기"
+
+    const ul = document.querySelector('ul')
+    ul.appendChild(li1)
+    ul.appendChild(li2)
+    ul.appendChild(li3)
+
+  </script>
+</body>
+</html>

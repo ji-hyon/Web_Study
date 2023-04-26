@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    section {
+      height: 50vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .myInputs {
+      display: block;
+      outline: none;
+      width: 200px;
+      margin: 15px;
+      padding: 15px 10px;
+      text-align: center;
+      border: 2px solid black;
+      border-radius: 5px;
+    }
+ 
+    .myInputs:focus {
+      /* focus 발생시 변경될 속성 */
+      border-color: green;
+    }
+
+    .myButton{
+      display: block;
+      background: none;
+      outline: none;
+      margin: 15px auto;
+      padding: 10px 10px;
+      text-align: center;
+      border: 2px solid #55b2cf;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.5s;
+    }
+
+    .myButton:hover {
+      color: white;
+      background-color: #55b2cf;
+    }
+
+  </style>
+</head>
+<body>
+
+  <form>
+    <!-- button은 태그 사이에 값 입력 -->
+    <!-- input은 태그 안 value에 값 입력 -->
+    <input type="text">
+    <button type='submit'></button>
+  </form>
+  <ul></ul>
+  
+  <script>
+    const myForm = document.querySelector('form')
+    const myInput = document.querySelector('input')
+
+    myForm.addEventListener('submit', function(event){
+      // event.preventDefault()는 이벤트의 기본 동작을 취소하는 메소드. 
+      // 폼(form)을 제출할 때 폼의 내용을 서버에 전송하려고 할 때, 이벤트가 발생하고 새로고침 된다. 
+      event.preventDefault()
+      const li = document.createElement('li')
+      li.innerText = myInput.value
+      const ul = document.querySelector('ul')
+      ul.appendChild(li)
+      myInput.value = ''
+    })
+
+  </script>
+</body>
+</html>
