@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ person.username }}의 프로필 페이지</h1>
+  {% with followings=person.followings.all followers=person.followers.all %}
+    <div>
+      <div>
+        {% comment %} 팔로잉 : {{ followings|length }} / 팔로워 : {{ followers|length }} {% endcomment %}
+        팔로워 : <span id='followers-count'>{{ followers|length }}</span>
+        팔로잉 : <span id='followings-count'>{{ followings|length }}</span>
+      </div>
+      {% if user != person %}
+        <div>
+          {% comment %} form으로 요청을 보내면 새로고침이 됨(동기). 자바스크립트로 보내야 함{% endcomment %}
+          {% comment %} <form action="{% url 'accounts:follow' person.pk %}" method="POST"> {% endcomment %}
+          {% comment %} data-* attributes 사용자 지정 데이터 
+            -> event.target.dataset.*로 사용 {% endcomment %}
+            <form id="follow-form" data-user-id="{{ person.pk }}">
+            {% csrf_token %}
+            {% if user in followers %}
+              <button type="submit" class="btn btn-secondary">언팔로우</button>
+              {% comment %} <input type="submit" value='언팔로우'> {% endcomment %}
+            {% else %}
+              <button type="submit" class="btn btn-primary">팔로우</button>
+            {% endif %}
+          </form>
+        </div>
+      {% endif %}
+    </div>
+  {% endwith %}
+{% endblock %}
+
+
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+
+  const form = document.querySelector('#follow-form')
+  form.addEventListener('submit', function(event) {
+    event.preventDefault()
+
+    const userId = event.target.dataset.userId
+    // csrt토큰은 공식문서에서 코드 불러오기
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+    // axios(어떻게 요청보내는지 정보가 담긴 객체)
+    axios({
+      method : 'post',
+      url : `/accounts/${userId}/follow/`,
+      headers: {'X-CSRFToken': csrftoken},
+    })
+    .then((response) => {
+      // console.log(response)
+      const isFollowed = response.data.is_followed
+      const followBtn = document.querySelector('button')
+      const followersCountTag = document.querySelector('#followers-count')
+      const followingsCountTag = document.querySelector('#followings-count')
+      
+      // 색상 변경
+      followBtn.classList.toggle('btn-secondary')
+      followBtn.classList.toggle('btn-primary')
+
+      const followersCount = response.data.followers_count
+      const followingsCount = response.data.followings_count
+
+      followersCountTag.innerText = followersCount
+      followingsCountTag.innerText = followingsCount
+
+      if (isFollowed === true) {
+        // followBtn.value로 쓰면 새로고침해야 변경됨
+        // input이 value / button은 innerText
+        // value 속성에 값을 지정하면 해당 값이 폼 제출 시 전송되므로 새로고침을 해야 서버에서 해당 값이 반영된다.
+        // 반면에 innerText 속성은 클라이언트 측에서만 사용되므로, 값의 변경이 즉시 반영된다. 
+        followBtn.innerText = '언팔로우'
+      } else {
+        followBtn.innerText = '팔로우'
+      }    
+    })
+    // .catch()
+  })
+
+</script>
+{% endblock script %}
+  

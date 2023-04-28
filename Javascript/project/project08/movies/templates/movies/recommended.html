@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% for movie in top_movies %}
+
+
+    {% for movie in top_movies %}
+        <h2>{{ movie.title }}</h2>
+        <p>{{ movie.overview }}</p>
+        <p>평균 평점: {{ movie.vote_average }}</p>
+        <img src='{{ movie.poster_path }}'>
+    {% endfor %}
+
+
+{% endfor %}
+
+
+
+{% endblock %}
