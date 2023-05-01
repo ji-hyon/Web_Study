@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>인기 영화들</h1>
+    <ul>
+
+    </ul>
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const ul = document.querySelector('ul')
+        const movieURL = 'https://api.themoviedb.org/3/movie/popular?api_key=(키적기)&language=ko-KR&page=1'
+        const popularMovies = []
+        
+        axios.get(movieURL)
+
+          .then(response => {
+            for (Movie of response.data.results) {
+              if (Movie.vote_average >= 7.5) {
+                popularMovies.push(Movie)
+                // console.log(popularMovies)
+                // console.log(popularMovies.length);
+              }
+            }
+            popularMovies.forEach(movie => {
+                const li = document.createElement('li')
+                li.innerText = movie.title
+                ul.appendChild(li)
+            })
+          })
+        
+          .catch(error => console.log(error))
+
+    </script>
+</body>
+</html>
