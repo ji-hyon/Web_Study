@@ -1,0 +1,8 @@
+{% for article in articles %}
+    <form class="like-form" method="POST" data-article-id="{{ article.id }}">
+        {% csrf_token %}
+        <input type="hidden" name="article_id" value="{{ article.id }}">
+        <button type="submit">좋아요</button>
+    </form>
+{% endfor %}
+
