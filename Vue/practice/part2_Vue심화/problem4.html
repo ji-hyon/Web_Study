@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .completed {
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app">
+        <!-- 드롭다운 목록 -->
+        <!-- value 속성이 생략된다면, 해당 항목의 텍스트가 mySelect 폼 데이터로 전송됨. value 속성을 사용하면 선택된 옵션의 값을 지정할 수 있음 -->
+        <!-- v-model !!!!!!!  -->
+        <select v-model="mySelect">
+            <option value="all">전체</option>
+            <option value="inProgress">진행중</option>
+            <option value="completed">완료</option>
+        </select>
+
+        <!-- 입력칸 -->
+        <!-- 양방향 데이터 바인딩 -->
+        <input type="text" v-model="content">
+
+        <!-- 추가 버튼 -->
+        <button @click="addTodo">+</button>
+
+        <br>
+
+        <!-- 할일 리스트 -->
+        <ul>
+            <!-- 날짜를 key로 사용하기 -->
+            <li v-for="todo in todoListBySelect" :key="todo.date">
+                <!-- 체크박스 -->
+                <!-- 체크여부를 todo.isCompleted와 v-bind -->
+                <!-- todo.isCompleted 값이 true인 경우 체크박스가 체크된 상태로 렌더링되고, false인 경우 체크박스가 체크되지 않은 상태로 렌더링 됨 -->
+                <input type="checkbox" @click="toggleTodo(todo)" :checked="todo.isCompleted">
+                <!-- 동적으로 클래스 지정해주기. todo.isCompleted값에 따라 completed 클래스 설정 -->
+                <span :class="{ completed: todo.isCompleted }">{{ todo.content }}</span>
+            </li>
+        </ul>
+
+        <!-- 완료된 할 일 지우기 버튼 -->
+        <button @click="deleteCompleted">완료된 할 일 지우기</button>
+
+    </div>
+
+
+
+    <!-- Vue CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        const STORAGE_KEY = 'vue-todo-app'
+        const todoStorage = {
+            fetch: function () {
+                return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []
+            },
+            save: function (todos) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
+            },
+        }
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                content: null,
+                todos: todoStorage.fetch(),
+                // 초기값은 전체 데이터 보여주기로 설정 
+                mySelect: 'all',
+                // mySelect: 'inProgress',
+            },
+            methods: {
+                // + 버튼 클릭 시 항목 추가
+                addTodo (event) {
+                    // 입력값 길이 검사 
+                    if(this.content.trim()){
+                        const todo = {
+                            content: this.content,
+                            isCompleted: false,
+                            // 키 값으로 사용할 데이터 
+                            date: new Date().getTime(),
+                        }
+                        this.todos.push(todo)
+                        // 추가 후 초기화
+                        this.content = ''
+                    } else {
+                        alert('내용을 입력해주세요!')
+                    }
+                },
+
+                // 체크 박스 클릭시 클래스 true/false로 css적용/해제
+                toggleTodo: function(todo) {
+                    todo.isCompleted = !todo.isCompleted
+                },
+
+                // 체크된 할 일 지우기
+                // todo.isCompleted가 true가 아닌 요소들로 구성된 새로운 배열 반환
+                deleteCompleted: function() {
+                    this.todos = this.todos.filter(todo => {
+                        return todo.isCompleted != true
+                    })
+                },
+            },
+
+            computed: {
+                todoListBySelect: function(){
+                    return this.todos.filter(todo =>{
+                        if (this.mySelect === 'inProgress'){
+                            return todo.isCompleted != true
+                        }
+                        if (this.mySelect === 'completed') {
+                            return todo.isCompleted === true
+                        }
+                        if (this.mySelect === 'all') {
+                            return true
+                        }
+                    })
+                }
+            },
+
+            watch: {
+                todos: {
+                    deep: true,
+                    // todos 값이 변경되면 로컬 스토리지에 저장하는 handler 함수 호출
+                    handler: function (todos) {
+                        todoStorage.save(todos)
+                    },
+                }
+            }
+
+        })
+
+
+    </script>
+
+</body>
+</html>
