@@ -36,8 +36,8 @@ export default {
             url: MovieURL
         })
         .then((response)=> {
-            console.log(response);
-            console.log(response.data);
+            // console.log(response);
+            // console.log(response.data);
             // console.log(response.data.results);
             const movieData = response.data.results
             this.movieData = movieData
