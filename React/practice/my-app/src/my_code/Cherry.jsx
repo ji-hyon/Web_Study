@@ -1,11 +1,18 @@
-function MyButton(props) {
-    const handleDelete = (id, event) => {
-        console.log(id, event.target);
-    };
+const { useState } = require("react");
+
+function MainPage(props) {
+    const [showWarning, setShowWarning] = useState(false);
+
+    const handleToggleClick = () => {
+        setShowWarning(prevShowWarning => !prevShowWarning);
+    }
 
     return (
-        <button onClick={(event) => handleDelete(1, event)}>
-            삭제하기 
-        </button>
-    );
+        <div>
+            <WarningBanner warning={showWarning} />
+            <button onClick={handleToggleClick}>
+                {showWarning ? '감추기' : '보이기'}
+            </button>
+        </div>
+    )
 }
