@@ -1,18 +1,24 @@
-function Calculator(props) {
-    const [temperature, setTemperature] = useState('');
+function SignUpDialog(props) {
+    const [nickname, setNickname] = useState('');
 
     const handleChange = (event) => {
-        setTemperature(event.target.value);
+        setNickname(event.target.value);
+    }
+
+    const handleSignUp = () => {
+        alert(`어서오세요, ${nickname}님!`)
     }
 
     return (
-        <fieldset>
-            <legend>섭씨 온도를 입력하세요:</legend>
-            <input 
-                value={temperature}
+        <Dialog
+            title="화성 탐사 프로그램"
+            message="닉네임을 입력해주세요.">
+            <input
+                value={nickname}
                 onChange={handleChange} />
-            <BoilingVerdict 
-                celsius={parseFloat(temperature)} />
-        </fieldset>
-    )
+            <button onClick={handleChange}>
+                가입하기
+            </button>
+        </Dialog>
+    );
 }
