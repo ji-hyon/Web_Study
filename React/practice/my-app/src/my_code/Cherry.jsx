@@ -1,24 +1,16 @@
-function SignUpDialog(props) {
-    const [nickname, setNickname] = useState('');
+import { memo } from "react";
 
-    const handleChange = (event) => {
-        setNickname(event.target.value);
-    }
+const Todos = ({ todos, addTodo }) => {
+  console.log("child render");
+  return (
+    <>
+      <h2>My Todos</h2>
+      {todos.map((todo, index) => {
+        return <p key={index}>{todo}</p>;
+      })}
+      <button onClick={addTodo}>Add Todo</button>
+    </>
+  );
+};
 
-    const handleSignUp = () => {
-        alert(`어서오세요, ${nickname}님!`)
-    }
-
-    return (
-        <Dialog
-            title="화성 탐사 프로그램"
-            message="닉네임을 입력해주세요.">
-            <input
-                value={nickname}
-                onChange={handleChange} />
-            <button onClick={handleChange}>
-                가입하기
-            </button>
-        </Dialog>
-    );
-}
+export default memo(Todos);
