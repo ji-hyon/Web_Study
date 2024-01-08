@@ -13,7 +13,7 @@
 docs/_book
 
 # TODO: where does this rule come from?
-test/
+# test/
 
 ### Django ###
 *.log
