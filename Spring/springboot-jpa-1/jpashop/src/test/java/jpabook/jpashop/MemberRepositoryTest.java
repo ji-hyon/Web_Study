@@ -18,7 +18,7 @@ public class MemberRepositoryTest {
     @Test
     @Transactional // 엔티티 매니저를 통한 모든 데이터 변경은 항상 트랜잭션 안에서 이루어져야 함
                     // 테스트의 경우, 테스트가 끝나면 롤백
-//    @Rollback(false) // 롤백하지 않고 DB에서 확인하고 싶을 때
+    @Rollback(false) // 롤백하지 않고 DB에서 확인하고 싶을 때
     public void testMember() throws Exception {
         //given
         Member member = new Member();
